@@ -2,7 +2,6 @@ use anyhow::Result;
 use sqlx::SqlitePool;
 
 pub async fn create_pool(database_url: &str) -> Result<SqlitePool> {
-    std::fs::File::create("expenses.db").ok();
 
     let pool = SqlitePool::connect(database_url).await?;
 
