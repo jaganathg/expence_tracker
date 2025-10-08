@@ -9,9 +9,13 @@ pub async fn add_expense(
     State(service): State<ExpenseService>,
     Json(request): Json<CreateExpenseRequest>,
 ) -> Result<Json<Expense>, AppError> {
-    println!("Validating request: amount= {}, category= {}", request.amount, request.category);
-    
-    request.validate()
+    println!(
+        "Validating request: amount= {}, category= {}",
+        request.amount, request.category
+    );
+
+    request
+        .validate()
         .map_err(|e| AppError::Validation(e.to_string()))?;
 
     let expense = service.add_expense(request).await?;

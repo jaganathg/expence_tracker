@@ -16,7 +16,11 @@ pub struct CreateExpenseRequest {
     #[validate(range(min = 0.01, message = "Amount must be greater than 0"))]
     pub amount: f64,
 
-    #[validate(length(min = 1, max = 50, message = "Category must be between 1 and 50 characters"))]
+    #[validate(length(
+        min = 1,
+        max = 50,
+        message = "Category must be between 1 and 50 characters"
+    ))]
     pub category: String,
 }
 
