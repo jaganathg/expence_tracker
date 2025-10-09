@@ -1,4 +1,5 @@
 /target
+/doc
 
 .history
-doc
+.DS_Store

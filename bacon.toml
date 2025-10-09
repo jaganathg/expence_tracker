@@ -1,0 +1,39 @@
+[jobs.clippy]
+command = ["cargo", "clippy", "--all-targets", "--all-features", "--", "-D", "warnings"]
+need_stdout = false
+
+[jobs.fmt]
+command = ["cargo", "fmt", "--all", "--", "--check"]
+need_stdout = true
+
+[jobs.check]
+command = ["cargo", "check", "--all-features", "--all-targets"]
+need_stdout = false
+
+[jobs.test]
+command = ["cargo", "test", "--all-features"]
+need_stdout = true
+
+[jobs.test-quiet]
+command = ["cargo", "test", "--all-features", "--", "--nocapture"]
+need_stdout = true
+
+[jobs.test-one]
+command = ["cargo", "test", "--all-features"]
+need_stdout = true
+
+[jobs.test-verbose]
+command = ["cargo", "test", "--all-features", "--", "--nocapture", "--test-threads=1"]
+need_stdout = true
+
+[jobs.test-unit]
+command = ["cargo", "test", "--lib", "--all-features"]
+need_stdout = true
+
+[jobs.test-integration]
+command = ["cargo", "test", "--test", "*", "--all-features"]
+need_stdout = true
+
+[jobs.all]
+command = ["sh", "-c", "cargo fmt --all -- --check && cargo clippy --all-features --all-targets -- -D warnings"]
+need_stdout = true
