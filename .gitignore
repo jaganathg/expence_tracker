@@ -1,5 +1,7 @@
 /target
 /doc
+/frontend/target
+
 
 .history
 .DS_Store
