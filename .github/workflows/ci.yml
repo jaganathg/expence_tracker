@@ -19,6 +19,9 @@ jobs:
   
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+          components: rustfmt,clippy
   
       - name: Cache dependencies
         uses: actions/cache@v3
@@ -32,7 +35,9 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
   
       - name: Check formatting
-        run: cargo fmt -- --check
+        run: |
+          cargo fmt -- --check
+          cargo fmt
   
       - name: Run clippy
         run: cargo clippy -- -D warnings
@@ -57,6 +62,9 @@ jobs:
   
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+          components: rustfmt,clippy
   
       - name: Cache dependencies
         uses: actions/cache@v3
@@ -70,7 +78,9 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
   
       - name: Install Dioxus CLI
-        run: cargo install dioxus-cli
+        run: |
+          cargo install cargo-binstall
+          cargo binstall dioxus-cli --no-confirm
   
       - name: Check formatting
         run: cargo fmt -- --check

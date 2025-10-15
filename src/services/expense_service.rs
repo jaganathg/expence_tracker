@@ -70,12 +70,11 @@ impl ExpenseService {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
-    use sqlx::SqlitePool;
     use crate::models::expense::CreateExpenseRequest;
+    use sqlx::SqlitePool;
 
     async fn create_test_pool() -> SqlitePool {
         let pool = SqlitePool::connect("sqlite::memory:").await.unwrap();
@@ -95,7 +94,6 @@ mod tests {
         .unwrap();
 
         pool
-        
     }
 
     #[tokio::test]
@@ -103,7 +101,7 @@ mod tests {
         let pool = create_test_pool().await;
         let service = ExpenseService::new(pool);
 
-        let request = CreateExpenseRequest{
+        let request = CreateExpenseRequest {
             amount: 25.50,
             category: "Groceries".to_string(),
         };
@@ -177,7 +175,7 @@ mod tests {
         assert_eq!(highest.as_ref().unwrap().amount, 25.50);
         assert_eq!(highest.as_ref().unwrap().category, "Groceries");
     }
-    
+
     #[tokio::test]
     async fn test_get_highest_expense_single_item() {
         let pool = create_test_pool().await;
@@ -196,5 +194,4 @@ mod tests {
         assert_eq!(highest.as_ref().unwrap().amount, 10.05);
         assert_eq!(highest.as_ref().unwrap().category, "Books");
     }
-
 }

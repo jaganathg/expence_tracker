@@ -91,7 +91,11 @@ mod tests {
 
         assert!(request.validate().is_err());
         let errors = request.validate().unwrap_err();
-        assert!(errors.to_string().contains("Category must be between 1 and 50 characters"));
+        assert!(
+            errors
+                .to_string()
+                .contains("Category must be between 1 and 50 characters")
+        );
     }
 
     #[test]

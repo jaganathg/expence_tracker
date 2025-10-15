@@ -21,7 +21,6 @@ pub async fn create_pool(database_url: &str) -> Result<SqlitePool> {
     Ok(pool)
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -44,10 +43,11 @@ mod tests {
     async fn test_table_creation() {
         let pool = create_pool("sqlite::memory:").await.unwrap();
 
-        let result = sqlx::query("SELECT name FROM sqlite_master WHERE type='table' AND  name='expenses'")
-            .fetch_optional(&pool)
-            .await
-            .unwrap();
+        let result =
+            sqlx::query("SELECT name FROM sqlite_master WHERE type='table' AND  name='expenses'")
+                .fetch_optional(&pool)
+                .await
+                .unwrap();
 
         assert!(result.is_some());
     }
@@ -79,6 +79,5 @@ mod tests {
         assert_eq!(result.get::<String, _>("id"), test_id);
         assert_eq!(result.get::<f64, _>("amount"), test_amount);
         assert_eq!(result.get::<String, _>("category"), test_category);
-            
     }
 }
