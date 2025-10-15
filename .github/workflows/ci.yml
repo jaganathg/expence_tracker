@@ -82,7 +82,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cargo install cargo-binstall
-          timeout 1200 cargo binstall dioxus-cli --no-confirm
+          cargo binstall dioxus-cli --no-confirm
         timeout-minutes: 15
   
       - name: Check formatting
