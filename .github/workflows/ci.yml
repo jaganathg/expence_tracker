@@ -78,9 +78,12 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
   
       - name: Install Dioxus CLI
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cargo install cargo-binstall
-          cargo binstall dioxus-cli --no-confirm
+          timeout 1200 cargo binstall dioxus-cli --no-confirm
+        timeout-minutes: 15
   
       - name: Check formatting
         run: |
