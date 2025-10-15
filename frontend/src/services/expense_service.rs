@@ -1,4 +1,4 @@
-use crate::models::{CreateExpenseRequest, Expense};
+use crate::models::{Expense, CreateExpenseRequest};
 use thiserror::Error;
 
 #[allow(dead_code)]
@@ -21,16 +21,10 @@ pub struct ExpenseService;
 #[allow(dead_code)]
 impl ExpenseService {
     pub async fn get_all_expenses() -> Result<Vec<Expense>, ExpenseServiceError> {
-        let response = reqwest::get(&format!("{}/expenses", API_BASE_URL)).await?;
+        let response = reqwest::get(&format!("{}/expenses", API_BASE_URL))
+            .await?;
 
-        if !response.status().is_success() {
-            return Err(ExpenseServiceError::Validation(format!(
-                "Failed to get expenses: {}",
-                response.status()
-            )));
-        }
-
-        let expenses: Vec<Expense> = response.json().await?;
+        let expenses : Vec<Expense> = response.json().await?;
         Ok(expenses)
     }
 
@@ -43,23 +37,19 @@ impl ExpenseService {
             .await?;
 
         if !response.status().is_success() {
-            return Err(ExpenseServiceError::Validation(format!(
-                "Failed to add expense: {}",
-                response.status()
-            )));
+            return Err(ExpenseServiceError::Validation (
+                format!("Failed to add expense: {}", response.status())
+            ));
         }
-
+        
         Ok(())
     }
 
     pub async fn get_highest_expense() -> Result<Option<Expense>, ExpenseServiceError> {
-        let response = reqwest::get(&format!("{}/expenses/highest", API_BASE_URL)).await?;
+        let response = reqwest::get(&format!("{}/expenses/highest", API_BASE_URL))
+            .await?;
 
-        if response.status().is_success() {
-            let expense: Expense = response.json().await?;
-            Ok(Some(expense))
-        } else {
-            Ok(None)
-        }
+        let result: serde_json::Value = response.json().await?;
+        Ok(result.get("expense").and_then(|e| serde_json::from_value(e.clone()).ok()))
     }
 }
