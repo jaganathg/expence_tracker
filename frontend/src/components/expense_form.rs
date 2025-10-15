@@ -4,8 +4,11 @@ use dioxus::prelude::*;
 
 #[component]
 pub fn ExpenseForm() -> Element {
+    #[allow(clippy::redundant_closure)]
     let mut amount = use_signal(|| String::new());
+    #[allow(clippy::redundant_closure)]
     let mut category = use_signal(|| String::new());
+    #[allow(clippy::redundant_closure)]
     let mut message = use_signal(|| String::new());
     let mut is_loading = use_signal(|| false);
 

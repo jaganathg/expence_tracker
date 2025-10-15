@@ -5,8 +5,10 @@ use dioxus::prelude::*;
 
 #[component]
 pub fn ExpenseList() -> Element {
+    #[allow(clippy::redundant_closure)]
     let mut expenses = use_signal(|| Vec::<Expense>::new());
     let mut is_loading = use_signal(|| true);
+    #[allow(clippy::redundant_closure)]
     let mut error = use_signal(|| String::new());
 
     use_effect(move || {
