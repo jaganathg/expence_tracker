@@ -83,7 +83,9 @@ jobs:
           cargo binstall dioxus-cli --no-confirm
   
       - name: Check formatting
-        run: cargo fmt -- --check
+        run: |
+          cargo fmt
+          cargo fmt -- --check
   
       - name: Run clippy
         run: cargo clippy -- -D warnings
