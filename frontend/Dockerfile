@@ -10,7 +10,8 @@ COPY Cargo.toml Cargo.lock ./
 COPY src ./src
 
 # Install Dioxus CLI
-RUN cargo install dioxus-cli
+RUN cargo install cargo-binstall && \
+    cargo binstall dioxus-cli --no-confirm
 
 # Build the frontend
 RUN dx build --release
