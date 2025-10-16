@@ -10,7 +10,8 @@ COPY Cargo.toml Cargo.lock ./
 COPY src ./src
 
 # Install Dioxus CLI
-RUN cargo install dioxus-cli
+RUN cargo install cargo-binstall && \
+    cargo binstall dioxus-cli --no-confirm
 
 # Build the frontend
 RUN dx build --release
@@ -19,7 +20,7 @@ RUN dx build --release
 FROM nginx:alpine
 
 # Copy built frontend files
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/target/dx/expense-tracker-frontend/release/web/public /usr/share/nginx/html
 
 # Expose port
 EXPOSE 80
