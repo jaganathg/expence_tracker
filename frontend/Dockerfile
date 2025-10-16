@@ -20,7 +20,7 @@ RUN dx build --release
 FROM nginx:alpine
 
 # Copy built frontend files
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/target/dx/expense-tracker-frontend/release/web/public /usr/share/nginx/html
 
 # Expose port
 EXPOSE 80
