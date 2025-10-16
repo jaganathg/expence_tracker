@@ -36,8 +36,8 @@ jobs:
   
       - name: Check formatting
         run: |
-          cargo fmt -- --check
           cargo fmt
+          cargo fmt -- --check
   
       - name: Run clippy
         run: cargo clippy -- -D warnings
@@ -123,7 +123,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}/backend:latest
+          tags: ghcr.io/${{ github.actor }}/expence_tracker-backend:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
   
@@ -133,6 +133,6 @@ jobs:
           context: ./frontend
           file: ./frontend/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}/frontend:latest
+          tags: ghcr.io/${{ github.actor }}/expence_tracker-frontend:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
